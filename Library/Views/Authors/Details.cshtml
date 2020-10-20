@@ -1,0 +1,33 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Author;
+
+@Html.ActionLink(" View All Authors", "Index", null, null, new { @class="btn btn-info fa fa-user" })
+@Html.ActionLink(" Edit", "Edit", new { id = Model.AuthorId }, new { @class="btn btn-info fa fa-edit" })
+@Html.ActionLink(" Delete", "Delete", new { id = Model.AuthorId }, new { @class="btn btn-info fa fa-times" })
+@Html.ActionLink(" Add Author", "AddAuthor", new { id = Model.AuthorId }, new { @class="btn btn-info fa fa-user-plus" })
+
+
+<p>@Html.DisplayFor(model => model.Name)'s Details</p>
+<hr />
+<p>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</p>
+
+
+@if(@Model.BookAuthors.Count == 0)
+{
+  <p>This author does not have a book(s) assigned yet.</p>
+}
+else
+{
+  <p>@Html.DisplayFor(model => model.Name)'s Book(s):</p>
+  <ul>
+  @foreach(var join in Model.BookAuthors)
+  {
+    <li>@join.Book.Title
+    @Html.ActionLink("Delete", "DeleteBook", "Authors", new { joinId = @join.BookAuthorId }, new { @class="btn btn-info fa fa-times" })
+    </li>
+  }
+  </ul>
+}

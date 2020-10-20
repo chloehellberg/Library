@@ -1,0 +1,13 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Book
+@Html.ActionLink(" All Books", "Index", null, null, new { @class="btn btn-info fa fa-user" })
+<h2>Are you sure you want to delete this book out of inventory?</h2>
+
+@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)
+@using (Html.BeginForm())
+{
+  <button type="submit" class="btn btn-info fa "><i class="fa-times"> Delete</i></button>
+}

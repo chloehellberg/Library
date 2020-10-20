@@ -1,0 +1,48 @@
+#footer {
+  text-align: center;
+  position:fixed;
+  bottom:0px;
+  left:0px;
+  width:100%;
+  color:#CCC;
+  background:rgb(84, 82, 117);
+  padding:8px;
+}
+#header {
+  text-align: center;
+  position:fixed;
+  top:0px;
+  left:0px;
+  width:100%;
+  background:#333;
+  padding:8px;
+}
+.title-button {
+  float: left;
+}
+#title {
+  letter-spacing: 10px;
+  font-weight: 900;
+  font-size: 50px;
+  color:rgb(202, 162, 162);
+}
+#render {
+  font-size: 25px;
+  margin: 150px 50px 300px 50px;
+}
+.col-md-4 {
+  text-align: center;
+}
+#photo{
+  
+
+  border: 50% solid black;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  display: block;
+  margin-left: auto;
+  margin-Right: auto;
+  box-shadow: 0 8px 24px 0 black;
+  
+  
+}

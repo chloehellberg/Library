@@ -11,7 +11,7 @@ using System.Security.Claims;
 
 namespace Library.Controllers
 {
-  [Authorize]
+  
   public class BooksController : Controller
   {
     private readonly LibraryContext _db;
@@ -22,6 +22,7 @@ namespace Library.Controllers
       _db = db;
     }
 
+  
     public async Task<ActionResult> Index()
     {
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -58,6 +59,8 @@ namespace Library.Controllers
         var thisBook = _db.Books
         .Include(book => book.BookAuthors)
         .ThenInclude(join => join.Author)
+        .Include(book => book.Copies)
+        // .ThenInclude(join => join.Copies)
         .FirstOrDefault(book => book.BookId == id);
         return View(thisBook);
     }
@@ -120,6 +123,25 @@ namespace Library.Controllers
     {
         var joinEntry = _db.BookAuthors.FirstOrDefault(entry => entry.BookAuthorId == joinId);
         _db.BookAuthors.Remove(joinEntry);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+    }
+    public ActionResult AddCopy(int id)
+    {
+        var thisBook = _db.Books.FirstOrDefault(books => books.BookId == id);
+        ViewBag.BookId = new SelectList(_db.Books, "BookId", "Title");
+        return View(thisBook);
+    }
+
+    [HttpPost]
+    public ActionResult AddCopy(Copies copies)
+    {
+      System.Console.WriteLine(copies.BookId);
+        if (copies.BookId != 0)
+        {
+          copies.InStock = true;
+        _db.Copies.Add(copies);
+        }
         _db.SaveChanges();
         return RedirectToAction("Index");
     }

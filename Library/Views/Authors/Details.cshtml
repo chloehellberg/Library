@@ -23,11 +23,14 @@ else
 {
   <p>@Html.DisplayFor(model => model.Name)'s Book(s):</p>
   <ul>
-  @foreach(var join in Model.BookAuthors)
+  @if(Model.BookAuthors.Count != 0)
   {
-    <li>@join.Book.Title
-    @Html.ActionLink("Delete", "DeleteBook", "Authors", new { joinId = @join.BookAuthorId }, new { @class="btn btn-info fa fa-times" })
-    </li>
+    @foreach(var join in Model.BookAuthors)
+    {
+      <li>@join.Book.Title
+      @Html.ActionLink("Delete", "DeleteBook", "Authors", new { joinId = @join.BookAuthorId }, new { @class="btn btn-info fa fa-times" })
+      </li>
+    }
   }
   </ul>
 }

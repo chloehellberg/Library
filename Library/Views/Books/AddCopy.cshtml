@@ -1,0 +1,22 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Book
+@Html.ActionLink(" All Books", "Index", null, null, new { @class="btn btn-info fa fa-user-md" })
+<h2>Add an Copy of Book</h2>
+
+@* <h4>Add an Author to @Html.DisplayFor(model => model.Title)</h4> *@
+
+@using (Html.BeginForm())
+{
+ // @Html.HiddenFor(model => model.BookId)
+  <table>
+    <tr>
+          @* @Html.HiddenFor( x => x.InStock = true) *@
+      <td>@Html.Label("Select Book")</td>
+      <td>@Html.DropDownList("BookId")</td>
+    </tr>
+  </table>
+  <button type="submit" class="btn btn-info fa "><i class="fa-user-plus"> Save</i></button>
+}

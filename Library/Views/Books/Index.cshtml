@@ -4,8 +4,9 @@
 @using Library.Models;
 @model List<Library.Models.Book>;
 
-@Html.ActionLink(" Add", "Create", null, null, new { @class="btn btn-info fa fa-user-plus" })
+@Html.ActionLink(" Add Book", "Create", null, null, new { @class="btn btn-info fa fa-user-plus" })
 @Html.ActionLink(" Home", "Index", "Home", null, new { @class="btn btn-info fa fa-home" })
+@Html.ActionLink(" Add Copy", "AddCopy", null, null, new { @class="btn btn-info fa fa-user-plus" })
 <h1>Books:</h1>
 
 @if (@Model.Count == 0)

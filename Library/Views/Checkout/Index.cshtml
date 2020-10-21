@@ -16,6 +16,6 @@
  <h1>@Model.Count</h1>
   @foreach (Checkout checkout in Model) 
   {
-    <li>@Html.ActionLink($"{checkout.Copy.Book.Title}", "Details", new { id = checkout.Copy.Book.BookId })  </li>
+    <li>@Html.ActionLink($"{checkout.Copy.Book.Title}", "Details", "books", new { id = checkout.Copy.Book.BookId }) | Checkout Date: @checkout.CheckoutDate.ToString("MM/dd/yyyy") | DueDate: @checkout.DueDate.ToString("MM/dd/yyyy")  </li>
   }
 </ul>

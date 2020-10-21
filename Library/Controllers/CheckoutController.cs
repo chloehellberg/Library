@@ -56,7 +56,7 @@ namespace Library.Controllers
       var booksInStock = _db.Copies.Where(x => x.BookId == id).Where(x => x.InStock == true).ToList();
       if(booksInStock.Count != 0)
       {
-        Checkout newCheckout = new Checkout(){CopiesId = booksInStock[0].BookId, CheckoutDate = DateTime.Now, DueDate = DateTime.Now.AddDays(14) };
+        Checkout newCheckout = new Checkout(){CopiesId = booksInStock[0].CopiesId, CheckoutDate = DateTime.Now, DueDate = DateTime.Now.AddDays(14) };
         booksInStock[0].InStock = false;
         newCheckout.User = currentUser;
         _db.Checkouts.Add(newCheckout);

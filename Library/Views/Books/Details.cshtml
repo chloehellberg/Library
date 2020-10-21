@@ -27,6 +27,10 @@ else
   <h4>Number of Copies: @Model.Copies.Count</h4>
   <h4>Copies in stock: @ViewBag.InStockBooks.Count</h4>
   <br>
+  @if(@ViewBag.InStockBooks.Count != 0)
+  {
+    @Html.ActionLink("Checkout", "CheckOutBook","Checkout", new { id = Model.BookId }, new { @class="btn btn-info fa fa-edit" })
+  }
   
 }
 @Html.ActionLink("Delete", "Delete", new { id = Model.BookId }, new { @class="btn btn-info fa fa-edit" })

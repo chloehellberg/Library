@@ -26,7 +26,7 @@ namespace Library.Controllers
       .GetUsersInRoleAsync("Administrator"))
       .ToArray();
 
-      var everyone = await _userManager.Users
+      var everyone = await _userManager.Users  
       .ToArrayAsync();
 
       var model = new ManageUsersViewModel

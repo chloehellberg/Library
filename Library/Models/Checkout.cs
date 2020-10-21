@@ -8,9 +8,8 @@ namespace Library.Models
       public DateTime DueDate { get; set; }
       public DateTime CheckoutDate { get; set; }
       public int CopiesId { get; set; }
-      public int PatronId { get; set; }
 
-      public Patron Patron { get; set; } 
+      public virtual ApplicationUser User { get; set; }
       public Copies Copy { get; set; }
 
     }

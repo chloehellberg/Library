@@ -23,7 +23,7 @@ namespace Library.Controllers
     }
 
     
-    public async Task<ActionResult> Index()
+    public ActionResult Index()
     {
       // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       // var currentUser = await _userManager.FindByIdAsync(userId);
@@ -97,6 +97,7 @@ namespace Library.Controllers
         ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
         return View(thisBook);
     }
+
     [Authorize(Policy = "RequireAdministratorRole")]
     [HttpPost]
     public ActionResult AddAuthor(Book book, int AuthorId)
@@ -108,14 +109,15 @@ namespace Library.Controllers
         _db.SaveChanges();
         return RedirectToAction("Index");
     }
+
     [Authorize(Policy = "RequireAdministratorRole")]
     public ActionResult Delete(int id)
     {
       var thisBook = _db.Books.FirstOrDefault(books => books.BookId == id);
       return View(thisBook);
     }
-    [Authorize(Policy = "RequireAdministratorRole")]
 
+    [Authorize(Policy = "RequireAdministratorRole")]
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
@@ -124,6 +126,7 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
     [Authorize(Policy = "RequireAdministratorRole")]
     [HttpPost]
     public ActionResult DeleteAuthor(int joinId)
@@ -133,6 +136,7 @@ namespace Library.Controllers
         _db.SaveChanges();
         return RedirectToAction("Index");
     }
+
     [Authorize(Policy = "RequireAdministratorRole")]
     public ActionResult AddCopy(int id)
     {
@@ -140,11 +144,12 @@ namespace Library.Controllers
         ViewBag.BookId = new SelectList(_db.Books, "BookId", "Title");
         return View(thisBook);
     }
+    
     [Authorize(Policy = "RequireAdministratorRole")]
     [HttpPost]
     public ActionResult AddCopy(Copies copies)
     {
-      System.Console.WriteLine(copies.BookId);
+      
         if (copies.BookId != 0)
         {
           copies.InStock = true;

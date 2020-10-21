@@ -10,7 +10,7 @@ namespace Library.Models
         this.Copies= new HashSet<Copies>();
       }
       public int BookId { get; set; }
-      public string Title { get; set; }
+      public string Title { get; set; } 
       public string Description { get; set; }      
       public virtual ApplicationUser User { get; set; }
       public virtual ICollection<BookAuthor> BookAuthors { get; set;}

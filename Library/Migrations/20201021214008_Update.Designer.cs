@@ -3,14 +3,16 @@ using System;
 using Library.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20201021214008_Update")]
+    partial class Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,6 +131,8 @@ namespace Library.Migrations
                     b.Property<int>("CopiesId");
 
                     b.Property<DateTime>("DueDate");
+
+                    b.Property<int>("PatronId");
 
                     b.Property<string>("UserId");
 
@@ -299,7 +303,7 @@ namespace Library.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Library.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("Checkouts")
                         .HasForeignKey("UserId");
                 });
 

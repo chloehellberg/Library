@@ -1,0 +1,22 @@
+@{
+  Layout = "_Layout";
+}
+@using Library.Models
+@model Library.Models.Checkout
+
+<h2>Checkout A book</h2>
+
+
+
+@using (Html.BeginForm())
+{
+  <table>
+    <tr>
+      <td>@Html.Label("Select Book")</td>
+      <td>@Html.DropDownList("BookId")</td>
+    </tr>
+     @Html.EditorFor(model => model.CheckoutDate, new { @type = "date" })
+  </table>
+  
+  <button type="submit" class="btn btn-info fa "><i class="fa-user-plus"> Checkout book</i></button>
+}

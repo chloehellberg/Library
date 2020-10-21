@@ -19,7 +19,7 @@ else
     <li>@join.Author.Name</li>
     @using (Html.BeginForm("DeleteAuthor", "Book"))
     {
-      @Html.Hidden("joinId", @join.BookAuthorsId)
+      @Html.Hidden("joinId", @join.BookAuthorId)
       <input type="submit" value="Delete"/>
     }
   }

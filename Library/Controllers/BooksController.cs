@@ -22,13 +22,14 @@ namespace Library.Controllers
       _db = db;
     }
 
-  
+    
     public async Task<ActionResult> Index()
     {
-      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var currentUser = await _userManager.FindByIdAsync(userId);
-      var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).ToList();
-      return View(userBooks);
+      // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      // var currentUser = await _userManager.FindByIdAsync(userId);
+      // var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      var books = _db.Books.ToList();
+      return View(books);
     }
    
    [Authorize(Policy = "RequireAdministratorRole")]
@@ -53,7 +54,8 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-
+    
+    [Authorize]
     public ActionResult Details(int id)
     {
         var thisBook = _db.Books
@@ -61,7 +63,9 @@ namespace Library.Controllers
         .ThenInclude(join => join.Author)
         .Include(book => book.Copies)
         // .ThenInclude(join => join.Copies)
-        .FirstOrDefault(book => book.BookId == id);
+        .FirstOrDefault(book => book.BookId == id); 
+
+        ViewBag.InStockBooks = _db.Copies.Where(x => x.BookId == id).Where(x => x.InStock == true).ToList();
         return View(thisBook);
     }
 
@@ -86,13 +90,14 @@ namespace Library.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize(Policy = "RequireAdministratorRole")]
     public ActionResult AddAuthor(int id)
     {
         var thisBook = _db.Books.FirstOrDefault(books => books.BookId == id);
         ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
         return View(thisBook);
     }
-
+    [Authorize(Policy = "RequireAdministratorRole")]
     [HttpPost]
     public ActionResult AddAuthor(Book book, int AuthorId)
     {
@@ -103,11 +108,13 @@ namespace Library.Controllers
         _db.SaveChanges();
         return RedirectToAction("Index");
     }
+    [Authorize(Policy = "RequireAdministratorRole")]
     public ActionResult Delete(int id)
     {
       var thisBook = _db.Books.FirstOrDefault(books => books.BookId == id);
       return View(thisBook);
     }
+    [Authorize(Policy = "RequireAdministratorRole")]
 
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
@@ -117,7 +124,7 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-
+    [Authorize(Policy = "RequireAdministratorRole")]
     [HttpPost]
     public ActionResult DeleteAuthor(int joinId)
     {
@@ -126,13 +133,14 @@ namespace Library.Controllers
         _db.SaveChanges();
         return RedirectToAction("Index");
     }
+    [Authorize(Policy = "RequireAdministratorRole")]
     public ActionResult AddCopy(int id)
     {
         var thisBook = _db.Books.FirstOrDefault(books => books.BookId == id);
         ViewBag.BookId = new SelectList(_db.Books, "BookId", "Title");
         return View(thisBook);
     }
-
+    [Authorize(Policy = "RequireAdministratorRole")]
     [HttpPost]
     public ActionResult AddCopy(Copies copies)
     {

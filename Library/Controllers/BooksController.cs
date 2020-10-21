@@ -29,13 +29,16 @@ namespace Library.Controllers
       var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).ToList();
       return View(userBooks);
     }
+   
+   [Authorize(Policy = "RequireAdministratorRole")]
     public ActionResult Create()
     {
         ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
         return View();
     }
 
-   [HttpPost]
+    [Authorize(Policy = "RequireAdministratorRole")]
+    [HttpPost]
     public async Task<ActionResult> Create(Book book, int AuthorId)
     {
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -59,13 +62,15 @@ namespace Library.Controllers
         return View(thisBook);
     }
 
+    [Authorize(Policy = "RequireAdministratorRole")]
     public ActionResult Edit(int id)
     {
-        var thisBook = _db.Books.FirstOrDefault(books => books.BookId == id);
-        ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
-        return View(thisBook);
+      var thisBook = _db.Books.FirstOrDefault(books => books.BookId == id);
+      ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
+      return View(thisBook);
     }
-
+    
+    [Authorize(Policy = "RequireAdministratorRole")]
     [HttpPost]
     public ActionResult Edit(Book book, int AuthorId)
     {

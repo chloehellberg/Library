@@ -25,6 +25,12 @@ namespace Library
     {
       services.AddMvc();
 
+      services.AddAuthorization(options =>
+      {
+        options.AddPolicy("RequireAdministratorRole",
+        policy => policy.RequireRole("Administrator"));
+      });
+
       services.AddEntityFrameworkMySql()
         .AddDbContext<LibraryContext>(options => options
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
